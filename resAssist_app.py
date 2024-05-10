@@ -17,9 +17,6 @@ Settings.llm = Ollama(model="llama3", request_timeout=360.0)
 RAG_DATA_DIR = "./data_for_RAG/test_data"
 if not os.path.exists(RAG_DATA_DIR):
     os.mkdir(RAG_DATA_DIR)
-else:
-    shutil.rmtree(RAG_DATA_DIR)
-    os.mkdir(RAG_DATA_DIR)
 
 # StreamLit Application ################################################3333
 
@@ -38,18 +35,20 @@ for ID, uploaded_file in enumerate(uploaded_files):
     with open(save_loc, 'wb') as f: 
         f.write(bytes_data)
 
-if st.button("Build RAG Application", type="primary", use_container_width=True):
+if st.button("Create Vector Database", type="primary", use_container_width=True):
 
     # load documents
-    documents = SimpleDirectoryReader(RAG_DATA_DIR).load_data()
+    st.session_state.documents = SimpleDirectoryReader(RAG_DATA_DIR).load_data()
 
     # create indexes for documents | uses text-embedding-ada-002 model to create vector embeddings (indexes)
-    index = VectorStoreIndex.from_documents(documents, show_progress=True)
+    st.session_state.index = VectorStoreIndex.from_documents(st.session_state.documents, show_progress=True)
 
     # Building Query Engine Rather than Chat Engine | As it is a Q/A Bot
-    query_engine = index.as_query_engine()
+    st.session_state.query_engine = st.session_state.index.as_query_engine()
 
-searched_query = st.text_area("Ask Your Query", "", placeholder="Enter your text here.")
-if st.button("Search", use_container_width=True):
-    response = query_engine.query(searched_query)
-    st.write(response)
+    st.write("Vector Store DB Is Ready")
+
+searched_query = st.text_area("Ask Your Query", placeholder="Enter your text here.")
+if searched_query:
+    response = st.session_state.query_engine.query(searched_query)
+    st.write(response.response)
