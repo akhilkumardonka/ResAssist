@@ -1,0 +1,9 @@
+# Data files
+data_for_RAG/*
+
+# Virtual Environment
+.env
+venv_project/
+
+# Jupyter Notebook
+*.ipynb_checkpoints
