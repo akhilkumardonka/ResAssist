@@ -2,6 +2,8 @@
 
 A Retrieval Augmented Generation App to help during Research Experiments and come up with Data Insights.
 
+![alt text](./images/rag_demo.png)
+
 ## Project Setup
 
 Install ollama, follow instructions at this [LINK](https://ollama.com/download)
@@ -22,8 +24,8 @@ source venv_project/bin/activate
 pip install -r requirements.txt
 ```
 
-Start streamlit server
+Start streamlit server (runs on localhost:8501)
 
 ```bash
-
+streamlit run resAssist_app.py
 ```

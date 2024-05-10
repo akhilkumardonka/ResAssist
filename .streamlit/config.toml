@@ -1,0 +1,11 @@
+[global]
+showWarningOnDirectExecution = false
+
+[theme]
+base="light"
+
+[server]
+# if you don't want to start the default browser:
+headless = true
+# you will need this for local development:
+runOnSave = true

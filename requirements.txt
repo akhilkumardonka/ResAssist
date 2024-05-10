@@ -4,3 +4,4 @@ python-dotenv
 langchain
 llama-index-llms-ollama
 llama-index-embeddings-ollama
+streamlit
